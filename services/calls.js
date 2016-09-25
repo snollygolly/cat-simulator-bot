@@ -1,5 +1,5 @@
 module.exports = {
-	handle: (sender, message) => {
+	action: (sender, message) => {
 		return false;
 	}
 };

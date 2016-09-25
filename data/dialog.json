@@ -1,4 +1,8 @@
 {
+	"about": {
+		"message": "Cat Simulator is an @snollygolly creation.",
+		"version": "Boots"
+	},
 	"display": {
 		"face": [
 			"=^..^=", "^⨀ᴥ⨀^", "^ↀᴥↀ^", "⦿⽘⦿", "≧◔◡◔≦", "龴ↀ◡ↀ龴", "=^_^=", ">'.'<", ">'o'<", "=^.^="

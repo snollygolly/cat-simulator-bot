@@ -1,10 +1,10 @@
 {
+ "command_character": "!",
  "irc": {
    "nick": "CatSim",
    "server": "irc.snoonet.org",
    "channels": [
      "#snollytest"
-   ],
-   "command_character": "!"
+   ]
  }
 }

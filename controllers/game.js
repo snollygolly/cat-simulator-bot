@@ -8,9 +8,9 @@ const gameModel = require("../models/game");
 
 module.exports = {
 	route: (sender, rcpt, message) => {
-		const route = router.handle(sender, rcpt, message);
-		if (route === null) {
-			log.info("null route hit");
+		const handler = router.getHandler(sender, rcpt, message);
+		if (handler.type === null) {
+			log.info("message didn't match router patterns");
 			return false;
 		}
 		co(function* co() {
@@ -30,7 +30,7 @@ module.exports = {
 			// call the route returned by the router
 			// get back a "modification" object that controls how the
 			// game and player objects are manipulated
-			const mod = route(json, sender, message);
+			const mod = handler.action(json, sender, message);
 			log.info("mod", mod);
 			// next see if a reply is even required
 			if (mod.reply === null) {
