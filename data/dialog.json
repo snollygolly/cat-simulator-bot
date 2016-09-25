@@ -1,0 +1,48 @@
+{
+	"display": {
+		"face": [
+			"=^..^=", "^⨀ᴥ⨀^", "^ↀᴥↀ^", "⦿⽘⦿", "≧◔◡◔≦", "龴ↀ◡ↀ龴", "=^_^=", ">'.'<", ">'o'<", "=^.^="
+		],
+		"greeting": ["A wild cat has appeared!", "Something is meowing!", "Something fluffy has appeared!", "Kitty!", "You see a pair of glowing eyes in the darkness", "Meow?", "Something is attacking your feet"],
+		"guide": ["[Try !pet]", "[Try !play]", "[Try !cuddle]", "[Try !shoo]", "[Try !pickup]"]
+	},
+	"action": {
+		"pet": [
+			{"message": "The kitty likes that", "points": 1},
+			{"message": "The kitty rubs up against [PLAYER]'s leg", "points": 2},
+			{"message": "The kitty purrs loudly and rubs against [PLAYER]'s leg", "points": 3},
+			{"message": "The kitty walks away unamused", "points": 0}
+		],
+		"play": [
+			{"message": "The kitty jumps up and adorably murders the toy", "points": 5},
+			{"message": "The kitty jumps up and adorably murders your hand", "points": -5},
+			{"message": "The kitty bats at the toy lazily and falls over to groom", "points": 3},
+			{"message": "The kitty takes the toy in its mouth and runs away from [PLAYER]", "points": -3}
+		],
+		"shoo": [
+			{"message": "The kitty hisses as [PLAYER] and runs off", "points": -3},
+			{"message": "The kitty just sits there and stares at [PLAYER]", "points": 0},
+			{"message": "The kitty trots off without even looking at [PLAYER]", "points": -2},
+			{"message": "The kitty glares at [PLAYER] and hisses", "points": -5}
+		],
+		"pickup": [
+			{"message": "The kitty relaxes in [PLAYER]'s arms and purrs", "points": 10},
+			{"message": "The kitty freaks out and scratches [PLAYER]", "points": -10},
+			{"message": "The kitty tolerates it for a little bit and then hops down", "points": 5},
+			{"message": "The kitty climbs up [PLAYER]'s back to get away'", "points": -5}
+		],
+		"cuddle": [
+			{"message": "The kitty rubs chins with [PLAYER]", "points": 25},
+			{"message": "The kitty decides [PLAYER]'s nose was food", "points": -25},
+			{"message": "The kitty purrs and then puts its butt in [PLAYER]'s face", "points": -5},
+			{"message": "The kitty stares right at [PLAYER] and blinks slowly", "points": 5}
+		],
+		"stare": [
+			{"message": "The kitty stares at [PLAYER]", "points": 0},
+			{"message": "The kitty stares into [PLAYER]'s soul", "points": 0},
+			{"message": "The kitty lays down and goes to sleep", "points": 0},
+			{"message": "The kitty doesn't seem to pay any attention to [PLAYER]", "points": 0},
+			{"message": "The kitty winks at [PLAYER]", "points": 1}
+		]
+	}
+}

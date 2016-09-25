@@ -1,0 +1,30 @@
+{
+  "name": "cat-simulator-bot",
+  "version": "1.0.0",
+  "description": "A bot that aims to host a game of Cat Simulator in IRC",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "./node_modules/.bin/mocha ./tests/ && ./node_modules/.bin/eslint .",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./tests/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snollygolly/cat-simulator-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snollygolly/cat-simulator-bot/issues"
+  },
+  "homepage": "https://github.com/snollygolly/cat-simulator-bot#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.6.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.0.2"
+  },
+  "dependencies": {
+    "irc": "^0.5.0"
+  }
+}

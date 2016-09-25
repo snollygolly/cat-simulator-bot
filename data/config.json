@@ -1,0 +1,15 @@
+{
+  "game": {
+    "enabled":false,
+    "active":false,
+    "time":null,
+    "last":1
+  },
+   "irc": {
+     "nick": "CatSim",
+     "server": "irc.snoonet.org",
+     "channels": [
+       "#snollytest"
+     ]
+   }
+}
