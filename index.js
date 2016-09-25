@@ -3,6 +3,7 @@ const config = require("./data/config.json");
 const log = require("./helpers/common").log;
 const game = require("./controllers/game");
 
+const co = require("co");
 const irc = require("irc");
 
 const client = new irc.Client(config.irc.server, config.irc.nick, {
@@ -18,13 +19,16 @@ client.addListener("join", (channel, nick, message) => {
 });
 
 client.addListener("message", (sender, rcpt, message) => {
-	log.debug(`sender: ${sender} => rcpt: ${rcpt} [${message}]`);
-	const result = game.route(sender, rcpt, message);
-	if (result === null) {
-		// nothing should be said
-		return;
-	}
-	Client.say(rcpt, result);
+	co(function* co() {
+		log.debug(`sender: ${sender} => rcpt: ${rcpt} [${message}]`);
+		const result = yield game.route(sender, rcpt, message);
+		if (result === null) {
+			// nothing should be said
+			return;
+		}
+		log.info(`Saying ${result} to ${rcpt}`);
+		client.say(rcpt, result);
+	}).catch(onError);
 });
 
 client.addListener("pm", (sender, message) => {
@@ -35,6 +39,11 @@ client.addListener("pm", (sender, message) => {
 client.addListener("error", (message) => {
 	log.error(message);
 });
+
+function onError(err) {
+	console.error(err.stack);
+	throw new Error(err);
+}
 
 process.on("SIGINT", () => {
 	client.disconnect("Nap time!");
