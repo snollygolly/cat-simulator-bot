@@ -56,7 +56,7 @@ describe("Router Service - Command Route", () => {
 	});
 
 	it("game properties should have correct values", (done) => {
-		expect(handler.type).to.equal("commands");
+		expect(handler.type).to.equal("command");
 		expect(handler.action).to.be.a("function");
 		return done();
 	});
@@ -80,7 +80,7 @@ describe("Router Service - Calls Route", () => {
 	});
 
 	it("game properties should have correct values", (done) => {
-		expect(handler.type).to.equal("calls");
+		expect(handler.type).to.equal("call");
 		expect(handler.action).to.be.a("function");
 		return done();
 	});

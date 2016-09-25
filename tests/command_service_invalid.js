@@ -3,7 +3,7 @@ const config = require("../data/config.json");
 const expect = require("chai").expect;
 
 const routerService = require("../services/router");
-const commandsService = require("../services/commands");
+const commandService = require("../services/command");
 
 const gameModel = require("../models/game");
 

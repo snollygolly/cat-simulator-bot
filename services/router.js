@@ -1,7 +1,7 @@
 const log = require("../helpers/common").log;
 
-const commands = require("./commands");
-const calls = require("./calls");
+const command = require("./command");
+const call = require("./call");
 
 module.exports = {
 	getHandler: (sender, rcpt, message) => {
@@ -9,16 +9,16 @@ module.exports = {
 		if (/^\!\w+/i.test(message) === true) {
 			// this is a command
 			return {
-				type: "commands",
-				action: commands.action
+				type: "command",
+				action: command.action
 			};
 		}
 		// check for calls
 		if (/.?here kitty.?/i.test(message) === true) {
 			// this is a call
 			return {
-				type: "calls",
-				action: calls.action
+				type: "call",
+				action: call.action
 			};
 		}
 		return {

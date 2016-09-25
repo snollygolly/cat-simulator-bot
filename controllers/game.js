@@ -1,7 +1,7 @@
 const log = require("../helpers/common").log;
 const db = require("../helpers/db");
 const router = require("../services/router");
-const modifications = require("../services/modifications");
+const modification = require("../services/modification");
 
 const playerModel = require("../models/player");
 const gameModel = require("../models/game");
@@ -42,7 +42,7 @@ module.exports = {
 			// next check if modifications are needed to the game object
 			if (mod.game !== null) {
 				log.info("needs game mod");
-				json.game = modifications.handleGameMod(json.game, mod);
+				json.game = modification.handleGameMod(json.game, mod);
 				json.game = yield db.saveDocument(json.game, "cat-games");
 			}
 			// next check if modifications are needed to the player object
@@ -57,7 +57,7 @@ module.exports = {
 					json.player = playerModel.newPlayer(sender);
 				}
 				// actually perform the player action now
-				json.player = modifications.handlePlayerMod(json.player, mod);
+				json.player = modification.handlePlayerMod(json.player, mod);
 				json.player = yield db.saveDocument(json.player, "cat-players");
 			}
 			// process reply
