@@ -20,6 +20,10 @@ client.addListener("join", (channel, nick, message) => {
 client.addListener("message", (sender, rcpt, message) => {
 	log.debug(`sender: ${sender} => rcpt: ${rcpt} [${message}]`);
 	const result = game.route(sender, rcpt, message);
+	if (result === null) {
+		// nothing should be said
+		return;
+	}
 	Client.say(rcpt, result);
 });
 

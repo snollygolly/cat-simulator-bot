@@ -1,5 +1,5 @@
 module.exports = {
-	action: (sender, message) => {
+	action: (json, sender, rcpt, message) => {
 		return false;
 	}
 };

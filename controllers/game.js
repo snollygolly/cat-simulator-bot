@@ -11,7 +11,7 @@ module.exports = {
 		const handler = router.getHandler(sender, rcpt, message);
 		if (handler.type === null) {
 			log.info("message didn't match router patterns");
-			return false;
+			return null;
 		}
 		co(function* co() {
 			// build the reference object we'll pass around
@@ -30,14 +30,15 @@ module.exports = {
 			// call the route returned by the router
 			// get back a "modification" object that controls how the
 			// game and player objects are manipulated
-			const mod = handler.action(json, sender, message);
-			log.info("mod", mod);
+			const modFunction = handler.action(json, sender, rcpt, message);
+			log.info("modFunction", modFunction);
 			// next see if a reply is even required
-			if (mod.reply === null) {
+			if (modFunction === null) {
 				// no reply is needed = no db writes are needed
-				log.info("no reply needed, returning");
-				return false;
+				log.info("got null mod function, returning");
+				return null;
 			}
+			const mod = modFunction(json, sender, rcpt, message);
 			// next check if modifications are needed to the game object
 			if (mod.game !== null) {
 				log.info("needs game mod");
@@ -60,6 +61,11 @@ module.exports = {
 				json.player = yield db.saveDocument(json.player, "cat-players");
 			}
 			// process reply
+			if (mod.reply === null) {
+				// no reply is needed = no db writes are needed
+				log.info("got null mod, returning");
+				return null;
+			}
 			log.info(`returning reply: ${mod.reply}`);
 			return mod.reply;
 		}).catch(onerror);
