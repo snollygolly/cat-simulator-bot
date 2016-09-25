@@ -1,6 +1,7 @@
 module.exports = {
 	newPlayer: (nick) => {
 		const player = {
+			id: nick,
 			nick: nick,
 			score: 0,
 			charm: {

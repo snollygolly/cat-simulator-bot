@@ -1,6 +1,7 @@
 module.exports = {
-	newGame: () => {
+	newGame: (channel) => {
 		const game = {
+			id: channel,
 			enabled: false,
 			active: 0,
 			time: null,
