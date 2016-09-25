@@ -4,7 +4,7 @@
   "description": "A bot that aims to host a game of Cat Simulator in IRC",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node index.js | ./node_modules/.bin/bunyan",
     "test": "./node_modules/.bin/mocha ./tests/ && ./node_modules/.bin/eslint .",
     "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./tests/"
   },
@@ -25,6 +25,10 @@
     "mocha": "^3.0.2"
   },
   "dependencies": {
+    "bluebird": "^3.4.6",
+    "bunyan": "^1.8.1",
+    "co": "^4.6.0",
+    "cradle": "^0.7.1",
     "irc": "^0.5.0"
   }
 }
