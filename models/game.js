@@ -3,7 +3,7 @@ module.exports = {
 		const game = {
 			id: channel,
 			enabled: false,
-			active: 0,
+			active: false,
 			time: null,
 			last: 1
 		};
