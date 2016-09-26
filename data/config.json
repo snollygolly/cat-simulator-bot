@@ -3,6 +3,7 @@
  "admin": "snollygolly",
  "irc": {
    "nick": "CatSim",
+   "password": "PASSWORD",
    "server": "irc.snoonet.org",
    "channels": [
      "#snollytest"

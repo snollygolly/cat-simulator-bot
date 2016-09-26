@@ -14,6 +14,11 @@ const client = new irc.Client(config.irc.server, config.irc.nick, {
 });
 log.info("Waking up the kitty...");
 
+client.addListener("registered", (message) => {
+	log.info(`Connected to ${config.irc.server}`);
+	client.say("NICKSERV", `identify ${config.irc.password}`);
+});
+
 client.addListener("join", (channel, nick, message) => {
 	log.info(`Joined ${channel} with ${nick}`);
 });
