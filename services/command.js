@@ -77,7 +77,7 @@ const commands = {
 			game_active: false,
 			game_time: null,
 			player_score: reply.points,
-			reply: `${reply.message} ${common.color.grey}[${sender} gets ${reply.points} ${reply.plural}]`
+			reply: `${reply.message} ${common.color.grey}[${sender} replied in ${reply.time} seconds and got ${reply.points} ${reply.plural}]`
 		};
 	}
 };
@@ -90,8 +90,9 @@ const getReply = (json, sender, rcpt, message, test = false) => {
 	const pluralizedPoints = (adjustedScore === 1) ? "point" : "points";
 	return {
 		message: randomReply.message.replace("[PLAYER]", sender),
-		points: adjustedScore,
-		plural: pluralizedPoints
+		points: adjustedScore.points,
+		plural: pluralizedPoints,
+		time: adjustedScore.time
 	};
 };
 
@@ -110,7 +111,10 @@ const getScore = (base, game, test = false) => {
 	}
 	const pointsOff = base * percOff;
 	const finalScore = Math.round((base - pointsOff) + base);
-	return finalScore;
+	return {
+		points: finalScore,
+		time: Math.round(timeElapsed * 100) / 100
+	};
 };
 
 module.exports.commands = commands;

@@ -1,6 +1,6 @@
 {
 	"about": {
-		"message": "Cat Simulator is an @snollygolly creation.",
+		"message": "Cat Simulator aims to be a hyper realistic cat simulation.  It is an open source project [https://github.com/snollygolly/cat-simulator-bot] and pull requests are welcome!",
 		"version": "Boots"
 	},
 	"display": {
