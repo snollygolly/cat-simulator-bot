@@ -8,7 +8,6 @@ module.exports = {
 };
 
 module.exports.getRandomInt = function getRandomInt(min, max, test = false) {
-	console.log(`getRandomInt: test: ${test}`);
 	if (test === true) {
 		return min;
 	}
