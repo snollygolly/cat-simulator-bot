@@ -62,7 +62,7 @@ describe(`Commands Service - '${message}' Command`, () => {
 	});
 
 	it("mod properties should have correct values", (done) => {
-		const testMod = commandService.commands[testCommand](json, sender, rcpt, testCommand, true);
+		const testMod = commandService.commands[testCommand](json, sender, rcpt, message, true);
 		const pastValue = moment(new Date()).subtract("1", "minute").valueOf();
 		const futureValue = moment(new Date()).add("1", "minute").valueOf();
 		expect(mod.reply).to.equal(testMod.reply);

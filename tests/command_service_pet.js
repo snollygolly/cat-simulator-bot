@@ -8,6 +8,7 @@ const commandService = require("../services/command");
 const modificationService = require("../services/modification");
 
 const gameModel = require("../models/game");
+const playerModel = require("../models/player");
 
 const testCommand = "pet";
 const sender = "test";
@@ -17,22 +18,29 @@ const message = `${config.command_character}${testCommand}`;
 let handler;
 let json;
 let newGame;
+let newPlayer;
 let modFunction;
 let mod;
 
 describe(`Commands Service - '${message}' Command`, () => {
 	before(() => {
 		json = {
-			game: gameModel.newGame(rcpt)
+			game: gameModel.newGame(rcpt),
+			player: playerModel.newPlayer(sender)
 		};
 		// manually start game
 		json.game.enabled = true;
-		// manually spawn the cat
-		json.game.active = true;
+		json.game = modificationService.handleGameMod(Object.assign({}, json.game), {
+			game_active: true,
+			game_time: moment(new Date()).valueOf()
+		});
 		handler	= routerService.getHandler(sender, rcpt, message);
 		modFunction = handler.action(json, sender, rcpt, message);
+		// use test command because it gets filtered in the mod function
 		mod = modFunction(json, sender, rcpt, message, true);
+		// apply the modifications
 		newGame = modificationService.handleGameMod(Object.assign({}, json.game), mod);
+		newPlayer = modificationService.handlePlayerMod(Object.assign({}, json.player), mod);
 	});
 
 	it("mod should be the correct function", (done) => {
@@ -62,7 +70,7 @@ describe(`Commands Service - '${message}' Command`, () => {
 	});
 
 	it("mod properties should have correct values", (done) => {
-		const testMod = commandService.commands[testCommand](json, sender, rcpt, testCommand, true);
+		const testMod = commandService.commands[testCommand](json, sender, rcpt, message, true);
 		expect(mod.reply).to.equal(testMod.reply);
 		expect(mod.game_active).to.equal(false);
 		expect(mod.game_time).to.equal(null);
@@ -72,6 +80,11 @@ describe(`Commands Service - '${message}' Command`, () => {
 	it("mod should correctly apply to game", (done) => {
 		expect(newGame.active).to.equal(mod.game_active);
 		expect(newGame.time).to.equal(mod.game_time);
+		return done();
+	});
+
+	it("mod should correctly apply to player", (done) => {
+		expect(newPlayer.score).to.equal(mod.player_score + json.player.score);
 		return done();
 	});
 });

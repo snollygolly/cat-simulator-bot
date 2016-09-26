@@ -66,23 +66,53 @@ const commands = {
 		};
 	},
 	pet: function pet(json, sender, rcpt, message, test = false) {
-		if (json.game.enabled !== true) {
-			// can't spawn a cat if the name is stopped
-			return null;
-		}
-		if (json.game.active !== true) {
-			// can't pet a cat if it's not active
+		if (json.game.enabled !== true || json.game.active !== true) {
+			// can't spawn a cat if the game is stopped or hunt is already on
 			return null;
 		}
 		// get reply
-		const randomReply = dialog.action.pet[common.getRandomInt(0, dialog.action.pet.length - 1, test)];
-		const replacedReply = randomReply.message.replace("[PLAYER]", sender);
+		const reply = getReply(json, sender, rcpt, message, test);
+		// get score
 		return {
 			game_active: false,
 			game_time: null,
-			reply: `${replacedReply}`
+			player_score: reply.points,
+			reply: `${reply.message} (${sender} gets ${reply.points} ${reply.plural})`
 		};
 	}
 };
 
+const getReply = (json, sender, rcpt, message, test = false) => {
+	const command = message.substring(1);
+	const dialogAction = dialog.action[command];
+	const randomReply = dialogAction[common.getRandomInt(0, dialogAction.length - 1, test)];
+	const adjustedScore = getScore(randomReply.points, json.game, test);
+	const pluralizedPoints = (adjustedScore === 1) ? "point" : "points";
+	return {
+		message: randomReply.message.replace("[PLAYER]", sender),
+		points: adjustedScore,
+		plural: pluralizedPoints
+	};
+};
+
+const getScore = (base, game, test = false) => {
+	let time;
+	if (test === true) {
+		time = moment(game.time).add("1", "second").valueOf();
+	} else {
+		time = moment(new Date()).valueOf();
+	}
+	const maxTime = 5;
+	const timeElapsed = (time - moment(game.time).valueOf()) / 1000;
+	let percOff = timeElapsed / maxTime;
+	if (percOff > 1) {
+		percOff = 1;
+	}
+	const pointsOff = base * percOff;
+	const finalScore = Math.round((base - pointsOff) + base);
+	return finalScore;
+};
+
 module.exports.commands = commands;
+module.exports.getReply = getReply;
+module.exports.getScore = getScore;

@@ -9,7 +9,19 @@ module.exports = {
 		return game;
 	},
 	handlePlayerMod: (player, mod) => {
-		return false;
+		for (const prop in player) {
+			if (mod.hasOwnProperty(`player_${prop}`) === true) {
+				// check for score
+				if (prop === "score") {
+					// this prop goes to score, so add to existing score, not overwrite
+					player[prop] += mod[`player_${prop}`];
+				} else {
+					// the prop in the mod we're checking exists in the main object, replace it
+					player[prop] = mod[`player_${prop}`];
+				}
+			}
+		}
+		return player;
 	},
 	needsGameMod: (mod) => {
 		for (const prop in mod) {
