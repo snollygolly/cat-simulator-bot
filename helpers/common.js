@@ -6,3 +6,11 @@ const log = bunyan.createLogger({
 module.exports = {
 	log: log
 };
+
+module.exports.getRandomInt = function getRandomInt(min, max, test = false) {
+	console.log(`getRandomInt: test: ${test}`);
+	if (test === true) {
+		return min;
+	}
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+};

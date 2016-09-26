@@ -55,6 +55,7 @@ function onError(err) {
 }
 
 process.on("SIGINT", () => {
+	log.info("Kitty is going to sleep...");
 	client.disconnect("Nap time!");
 	process.exit();
 });

@@ -7,8 +7,7 @@
 		"face": [
 			"=^..^=", "^⨀ᴥ⨀^", "^ↀᴥↀ^", "⦿⽘⦿", "≧◔◡◔≦", "龴ↀ◡ↀ龴", "=^_^=", ">'.'<", ">'o'<", "=^.^="
 		],
-		"greeting": ["A wild cat has appeared!", "Something is meowing!", "Something fluffy has appeared!", "Kitty!", "You see a pair of glowing eyes in the darkness", "Meow?", "Something is attacking your feet"],
-		"guide": ["[Try !pet]", "[Try !play]", "[Try !cuddle]", "[Try !shoo]", "[Try !pickup]"]
+		"greeting": ["A wild cat has appeared!", "Something is meowing!", "Something fluffy has appeared!", "Kitty!", "You see a pair of glowing eyes in the darkness", "Meow?", "Something is attacking your feet"]
 	},
 	"action": {
 		"pet": [

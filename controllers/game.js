@@ -36,7 +36,14 @@ module.exports = {
 			log.info("got null mod function, returning");
 			return null;
 		}
+		log.info(`Performing action [${modFunction.name}]`);
 		const mod = modFunction(json, sender, rcpt, message);
+		// see if the mod was successful
+		if (mod === null) {
+			// no reply is needed = no db writes are needed
+			log.info("got null mod, returning");
+			return null;
+		}
 		// next check if modifications are needed to the game object
 		if (modification.needsGameMod(mod) === true) {
 			log.info(`Applying modification to game [${rcpt}]`);

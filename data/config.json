@@ -1,5 +1,6 @@
 {
  "command_character": "!",
+ "admin": "snollygolly",
  "irc": {
    "nick": "CatSim",
    "server": "irc.snoonet.org",
