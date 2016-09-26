@@ -10,5 +10,21 @@ module.exports = {
 	},
 	handlePlayerMod: (player, mod) => {
 		return false;
+	},
+	needsGameMod: (mod) => {
+		for (const prop in mod) {
+			if (prop.indexOf("game_") !== -1) {
+				return true;
+			}
+		}
+		return false;
+	},
+	needsPlayerMod: (mod) => {
+		for (const prop in mod) {
+			if (prop.indexOf("player_") !== -1) {
+				return true;
+			}
+		}
+		return false;
 	}
 };

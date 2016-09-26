@@ -20,20 +20,29 @@ client.addListener("join", (channel, nick, message) => {
 
 client.addListener("message", (sender, rcpt, message) => {
 	co(function* co() {
-		log.debug(`sender: ${sender} => rcpt: ${rcpt} [${message}]`);
 		const result = yield game.route(sender, rcpt, message);
 		if (result === null) {
 			// nothing should be said
 			return;
 		}
-		log.info(`Saying ${result} to ${rcpt}`);
+		log.info(`Saying: '${result}' to ${rcpt}`);
 		client.say(rcpt, result);
 	}).catch(onError);
 });
 
 client.addListener("pm", (sender, message) => {
-	log.debug(`sender: ${sender} => rcpt: ME [${message}]`);
-	const result = game.route(sender, "me", message);
+	// TODO: handle PMs
+	return;
+	co(function* co() {
+		const result = yield game.route(sender, rcpt, message);
+		if (result === null) {
+			// nothing should be said
+			return;
+		}
+		log.info(`Saying: '${result}' to ${rcpt}`);
+		client.say(rcpt, result);
+	}).catch(onError);
+
 });
 
 client.addListener("error", (message) => {

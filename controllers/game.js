@@ -38,14 +38,14 @@ module.exports = {
 		}
 		const mod = modFunction(json, sender, rcpt, message);
 		// next check if modifications are needed to the game object
-		if (mod.game !== null) {
-			log.info("needs game mod handled");
+		if (modification.needsGameMod(mod) === true) {
+			log.info(`Applying modification to game [${rcpt}]`);
 			json.game = modification.handleGameMod(json.game, mod);
 			json.game = yield db.saveDocument(json.game, "cat-games");
 		}
 		// next check if modifications are needed to the player object
-		if (mod.player !== null) {
-			log.info("needs player mod handled");
+		if (modification.needsPlayerMod(mod) === true) {
+			log.info(`Applying modification to player [${sender}]`);
 			// some action is needed on the player object, first fetch it
 			json.player = yield db.getDocument(sender, "cat-players");
 			if (json.player.error === true) {
@@ -61,7 +61,7 @@ module.exports = {
 		// process reply
 		if (mod.reply === null) {
 			// no reply is needed = no db writes are needed
-			log.info("got null mod, returning");
+			log.info("got null reply, returning");
 			return null;
 		}
 		return mod.reply;
