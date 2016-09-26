@@ -13,3 +13,9 @@ module.exports.getRandomInt = function getRandomInt(min, max, test = false) {
 	}
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+module.exports.color = {
+	control: `${String.fromCharCode(3)}`,
+	red: `${String.fromCharCode(3)}4`,
+	grey: `${String.fromCharCode(3)}14`
+};

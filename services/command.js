@@ -21,7 +21,7 @@ module.exports = {
 const commands = {
 	about: function about(json, sender, rcpt, message) {
 		return {
-			reply: `${dialog.about.message} - Version: ${dialog.about.version}`
+			reply: `${dialog.about.message} ${common.color.grey}[Version: ${dialog.about.version}]`
 		};
 	},
 	start: function start(json, sender, rcpt, message) {
@@ -62,7 +62,7 @@ const commands = {
 			game_active: true,
 			game_time: nowMoment,
 			game_last: nowMoment,
-			reply: `${randomGreeting} ${randomFace}`
+			reply: `${randomGreeting} ${common.color.red}${randomFace}`
 		};
 	},
 	pet: function pet(json, sender, rcpt, message, test = false) {
@@ -77,7 +77,7 @@ const commands = {
 			game_active: false,
 			game_time: null,
 			player_score: reply.points,
-			reply: `${reply.message} (${sender} gets ${reply.points} ${reply.plural})`
+			reply: `${reply.message} ${common.color.grey}[${sender} gets ${reply.points} ${reply.plural}]`
 		};
 	}
 };
