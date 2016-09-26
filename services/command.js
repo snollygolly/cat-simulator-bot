@@ -46,11 +46,11 @@ const commands = {
 	},
 	spawn: function spawn(json, sender, rcpt, message, test = false) {
 		if (json.game.enabled !== true) {
-			// can't spawn a duck if the name is stopped
+			// can't spawn a cat if the name is stopped
 			return null;
 		}
 		if (json.game.active === true) {
-			// can't spawn a duck if one is already spawned
+			// can't spawn a cat if one is already spawned
 			return null;
 		}
 		// get a shorthand for right now
@@ -63,6 +63,24 @@ const commands = {
 			game_time: nowMoment,
 			game_last: nowMoment,
 			reply: `${randomGreeting} ${randomFace}`
+		};
+	},
+	pet: function pet(json, sender, rcpt, message, test = false) {
+		if (json.game.enabled !== true) {
+			// can't spawn a cat if the name is stopped
+			return null;
+		}
+		if (json.game.active !== true) {
+			// can't pet a cat if it's not active
+			return null;
+		}
+		// get reply
+		const randomReply = dialog.action.pet[common.getRandomInt(0, dialog.action.pet.length - 1, test)];
+		const replacedReply = randomReply.message.replace("[PLAYER]", sender);
+		return {
+			game_active: false,
+			game_time: null,
+			reply: `${replacedReply}`
 		};
 	}
 };
