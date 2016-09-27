@@ -66,20 +66,40 @@ const commands = {
 		};
 	},
 	pet: function pet(json, sender, rcpt, message, test = false) {
-		if (json.game.enabled !== true || json.game.active !== true) {
-			// can't spawn a cat if the game is stopped or hunt is already on
-			return null;
-		}
-		// get reply
-		const reply = getReply(json, sender, rcpt, message, test);
-		// get score
-		return {
-			game_active: false,
-			game_time: null,
-			player_score: reply.points,
-			reply: `${reply.message} ${common.color.grey}[${sender} replied in ${reply.time} seconds and got ${reply.points} ${reply.plural}]`
-		};
+		return doReply(json, sender, rcpt, message, test);
+	},
+	play: function play(json, sender, rcpt, message, test = false) {
+		return doReply(json, sender, rcpt, message, test);
+	},
+	pickup: function pickup(json, sender, rcpt, message, test = false) {
+		return doReply(json, sender, rcpt, message, test);
+	},
+	cuddle: function cuddle(json, sender, rcpt, message, test = false) {
+		return doReply(json, sender, rcpt, message, test);
+	},
+	shoo: function shoo(json, sender, rcpt, message, test = false) {
+		return doReply(json, sender, rcpt, message, test);
+	},
+	stare: function stare(json, sender, rcpt, message, test = false) {
+		return doReply(json, sender, rcpt, message, test);
 	}
+};
+
+// for all replies that share that common action
+const doReply = (json, sender, rcpt, message, test = false) => {
+	if (json.game.enabled !== true || json.game.active !== true) {
+		// can't spawn a cat if the game is stopped or hunt is already on
+		return null;
+	}
+	// get reply
+	const reply = getReply(json, sender, rcpt, message, test);
+	// get score
+	return {
+		game_active: false,
+		game_time: null,
+		player_score: reply.points,
+		reply: `${reply.message} ${common.color.grey}[${sender} replied in ${reply.time} seconds and got ${reply.points} ${reply.plural}]`
+	};
 };
 
 const getReply = (json, sender, rcpt, message, test = false) => {
