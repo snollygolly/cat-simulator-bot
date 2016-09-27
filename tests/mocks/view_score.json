@@ -1,0 +1,30 @@
+{
+  "input":[
+    {
+      "key":"testUser1",
+      "value":1
+    },
+    {
+      "key":"testUser3",
+      "value":5
+    },
+    {
+      "key":"testUser2",
+      "value":3
+    }
+  ],
+  "output":[
+    {
+      "key":"testUser3",
+      "value":5
+    },
+    {
+      "key":"testUser2",
+      "value":3
+    },
+    {
+      "key":"testUser1",
+      "value":1
+    }
+  ]
+}

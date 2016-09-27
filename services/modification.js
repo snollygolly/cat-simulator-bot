@@ -23,6 +23,12 @@ module.exports = {
 		}
 		return player;
 	},
+	handleViewMod: (view, mod) => {
+		const transformedData = mod.transform(view);
+		const reply = mod.display(transformedData);
+		view.reply = reply;
+		return view;
+	},
 	needsGameMod: (mod) => {
 		for (const prop in mod) {
 			if (prop.indexOf("game_") !== -1) {
@@ -34,6 +40,14 @@ module.exports = {
 	needsPlayerMod: (mod) => {
 		for (const prop in mod) {
 			if (prop.indexOf("player_") !== -1) {
+				return true;
+			}
+		}
+		return false;
+	},
+	needsViewMod: (mod) => {
+		for (const prop in mod) {
+			if (prop === "view_name") {
 				return true;
 			}
 		}

@@ -16,7 +16,8 @@ module.exports = {
 		// build the reference object we'll pass around
 		const json = {
 			game: null,
-			player: null
+			player: null,
+			view: null
 		};
 		// get the game info from the database
 		json.game = yield db.getDocument(rcpt, "cat-games");
@@ -43,6 +44,15 @@ module.exports = {
 			// no reply is needed = no db writes are needed
 			log.info("got null mod, returning");
 			return null;
+		}
+		// next check if modifications are needed to the view object
+		// primarily used to call views and filter results
+		if (modification.needsViewMod(mod) === true) {
+			log.info(`Applying modification to view [${mod.view_name}]`);
+			json.view = yield db.runView("listing/scores", null, "cat-players");
+			json.view = modification.handleViewMod(json.view.results, mod);
+			// mod should always attach a reply to view
+			mod.reply = json.view.reply;
 		}
 		// next check if modifications are needed to the game object
 		if (modification.needsGameMod(mod) === true) {

@@ -82,6 +82,29 @@ const commands = {
 	},
 	stare: function stare(json, sender, rcpt, message, test = false) {
 		return doReply(json, sender, rcpt, message, test);
+	},
+	scores: function scores(json, sender, rcpt, message, test = false) {
+		const transform = (rawData) => {
+			const transformedData = rawData.sort((a, b) => {
+				return a.value - b.value;
+			}).reverse();
+			return transformedData.slice(0, 5);
+		};
+		const display = (transformedData) => {
+			let reply = `Top ${transformedData.length} Point Leaders:`;
+			for (const leader of transformedData) {
+				const plural = (leader.value === 1) ? "point" : "points";
+				reply += ` ${common.color.grey}${leader.key}${common.color.control} ${leader.value} ${plural},`;
+			}
+			// remove trailing comma
+			reply = reply.substring(0, reply.length - 1);
+			return reply;
+		};
+		return {
+			view_name: "listing/scores",
+			transform: transform,
+			display: display
+		};
 	}
 };
 
