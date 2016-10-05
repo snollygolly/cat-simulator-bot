@@ -62,14 +62,14 @@ function onError(err) {
 }
 // declare the first random spawn time
 // TODO: move this out of index
-let time = common.getRandomRange(config.min_time, config.max_time);
+let time = common.getRandomInt(config.min_time, config.max_time);
 // randomly spawn the kitties!
 // TODO: move this out of index
 const randomKitties = () => {
 	co(function* co() {
 		// prepare the next kitty spawn in milliseconds
 		// the current time setting are for min: 8 minutes - max: 30 minutes
-		time = common.getRandomRange(config.min_time, config.max_time);
+		time = common.getRandomInt(config.min_time, config.max_time);
 		setTimeout(randomKitties, time);
 		// tell the game we want to spawn a kitty!
 		const result = yield game.route(config.irc.nick, config.irc.channels[0], "!spawn");

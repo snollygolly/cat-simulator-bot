@@ -14,11 +14,6 @@ module.exports.getRandomInt = function getRandomInt(min, max, test = false) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-// handle random numbers for spawn times
-module.exports.getRandomRange = function getRandomRange(min, max) {
-	return Math.floor(Math.random() * (max - min) + min);
-};
-
 // this function adds an invisible unicode char to prevent highlighting
 module.exports.removeHighlight = function removeHighlight(sender) {
 	return [sender.slice(0, 1), "\u{200B}", sender.slice(1)].join("");
