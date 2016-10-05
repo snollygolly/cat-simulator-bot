@@ -72,7 +72,9 @@ module.exports = {
 				json.player = playerModel.newPlayer(sender);
 			}
 			// actually perform the player action now
-			json.player = modification.handlePlayerMod(json.player, mod);
+			json.player = modification.handlePlayerMod(json.player, mod, rcpt);
+			console.log(mod["player_score"]);
+			console.log(json.player);
 			json.player = yield db.saveDocument(json.player, "cat-players");
 		}
 		// process reply
