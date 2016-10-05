@@ -40,7 +40,7 @@ describe(`Commands Service - '${message}' Command`, () => {
 		mod = modFunction(json, sender, rcpt, message, true);
 		// apply the modifications
 		newGame = modificationService.handleGameMod(Object.assign({}, json.game), mod);
-		newPlayer = modificationService.handlePlayerMod(Object.assign({}, json.player), mod);
+		newPlayer = modificationService.handlePlayerMod(Object.assign({}, json.player), mod, "#room");
 	});
 
 	it("mod should be the correct function", (done) => {
@@ -84,7 +84,11 @@ describe(`Commands Service - '${message}' Command`, () => {
 	});
 
 	it("mod should correctly apply to player", (done) => {
-		expect(newPlayer.score).to.equal(mod.player_score + json.player.score);
+		expect(newPlayer.score).to.be.an("array");
+		expect(newPlayer.score.length).to.equal(1);
+		expect(newPlayer.score).to.equal(json.player.score);
+		expect(newPlayer.score[0]["score"]).to.equal(mod.player_score);
+		expect(newPlayer.score[0]["room"]).to.equal("#room");
 		return done();
 	});
 });
