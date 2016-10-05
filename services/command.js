@@ -117,7 +117,7 @@ const doReply = (json, sender, rcpt, message, test = false) => {
 	// get reply
 	const reply = getReply(json, sender, rcpt, message, test);
 	// remove user mention highlighting
-	const user = removeHighlight(sender);
+	const user = common.removeHighlight(sender);
 	// get score
 	return {
 		game_active: false,
@@ -134,7 +134,7 @@ const getReply = (json, sender, rcpt, message, test = false) => {
 	const adjustedScore = getScore(randomReply.points, json.game, test);
 	const pluralizedPoints = (adjustedScore === 1) ? "point" : "points";
 	// remove user mention highlighting
-	const user = removeHighlight(sender);
+	const user = common.removeHighlight(sender);
 	return {
 		message: randomReply.message.replace("[PLAYER]", user),
 		points: adjustedScore.points,
@@ -163,11 +163,6 @@ const getScore = (base, game, test = false) => {
 		time: Math.round(timeElapsed * 100) / 100
 	};
 };
-
-// this function adds an invisible unicode char to prevent highlighting
-function removeHighlight(sender) {
-	return [sender.slice(0, 1), "\u{200B}", sender.slice(1)].join("");
-}
 
 module.exports.commands = commands;
 module.exports.getReply = getReply;

@@ -19,6 +19,11 @@ module.exports.getRandomRange = function getRandomRange(min, max) {
 	return Math.floor(Math.random() * (max - min) + min);
 };
 
+// this function adds an invisible unicode char to prevent highlighting
+module.exports.removeHighlight = function removeHighlight(sender) {
+	return [sender.slice(0, 1), "\u{200B}", sender.slice(1)].join("");
+};
+
 module.exports.color = {
 	control: `${String.fromCharCode(3)}`,
 	red: `${String.fromCharCode(3)}4`,
