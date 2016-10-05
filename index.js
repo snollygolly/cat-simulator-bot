@@ -58,6 +58,34 @@ function onError(err) {
 	console.error(err.stack);
 	throw new Error(err);
 }
+// declare the first random spawn time
+let time = randomRange(config.min_time, config.max_time);
+// randomly spawn the kitties!
+const randomKitties = () => {
+	co(function* co() {
+		// prepare the next kitty spawn in milliseconds
+		// the current time setting are for min: 8 minutes - max: 30 minutes
+		time = randomRange(config.min_time, config.max_time);
+		console.log(config.min_time);
+		console.log(config.max_time);
+		setTimeout(randomKitties, time);
+		// tell the game we want to spawn a kitty!
+		const result = yield game.route(config.irc.nick, config.irc.channels[0], "!spawn");
+		if (result === null) {
+			// nothing should be said
+			return;
+		}
+		// tell the room there is a kitty nearby
+		client.say(config.irc.channels[0], result);
+	}).catch(onError);
+};
+// prepare the first kitty to spawn in 20 seconds
+setTimeout(randomKitties, time);
+
+// handle the random number for spawn time
+function randomRange(min, max) {
+	return Math.floor(Math.random() * (max - min) + min);
+}
 
 process.on("SIGINT", () => {
 	log.info("Kitty is going to sleep...");
