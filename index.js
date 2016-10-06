@@ -63,9 +63,10 @@ function onError(err) {
 }
 
 // prepare the first kitty to spawn randomly
+const time = common.getRandomInt(config.min_time, config.max_time);
 setTimeout(() => {
 	randomize.randomKitties();
-}, 5000);
+}, time);
 // common.getRandomInt(config.min_time, config.max_time));
 
 process.on("SIGINT", () => {

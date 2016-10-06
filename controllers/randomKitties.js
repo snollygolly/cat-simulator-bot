@@ -10,7 +10,7 @@ const	randomKitties = () => {
 		// prepare the next kitty spawn in milliseconds
 		// the current time setting are for min: 8 minutes - max: 30 minutes
 		const time = common.getRandomInt(config.min_time, config.max_time);
-		setTimeout(randomKitties, 5000);
+		setTimeout(randomKitties, time);
 		// tell the game we want to spawn a kitty!
 		const result = yield game.route(config.irc.nick, config.irc.channels[0], "!spawn");
 		if (result === null) {
