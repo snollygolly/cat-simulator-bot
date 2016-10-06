@@ -4,6 +4,7 @@ A hyper realistic cat simulator made to be interacted with via IRC.
 ## Prerequisites
 * [Node.js](https://nodejs.org/en/) (Version 6 and up required)
 * A nickname registered on [snoonet](https://snoonet.org/)
+* [CouchDB](http://couchdb.apache.org/)
 
 ### Installation
 
@@ -16,6 +17,10 @@ git clone https://github.com/snollygolly/cat-simulator-bot.git
 ```
 npm install
 ```
+
+* [Install CouchDB](http://docs.couchdb.org/en/2.0.0/install/index.html)
+
+* Create two new databases in couch, cat-games, and cat-players
 
 * Edit your config `data/config.json` to reflect your personal settings
 

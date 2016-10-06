@@ -116,12 +116,14 @@ const doReply = (json, sender, rcpt, message, test = false) => {
 	}
 	// get reply
 	const reply = getReply(json, sender, rcpt, message, test);
+	// remove user mention highlighting
+	const user = common.removeHighlight(sender);
 	// get score
 	return {
 		game_active: false,
 		game_time: null,
 		player_score: reply.points,
-		reply: `${reply.message} ${common.color.grey}[${sender} replied in ${reply.time} seconds and got ${reply.points} ${reply.plural}]`
+		reply: `${reply.message} ${common.color.grey}[${user} replied in ${reply.time} seconds and got ${reply.points} ${reply.plural}]`
 	};
 };
 
@@ -131,8 +133,10 @@ const getReply = (json, sender, rcpt, message, test = false) => {
 	const randomReply = dialogAction[common.getRandomInt(0, dialogAction.length - 1, test)];
 	const adjustedScore = getScore(randomReply.points, json.game, test);
 	const pluralizedPoints = (adjustedScore === 1) ? "point" : "points";
+	// remove user mention highlighting
+	const user = common.removeHighlight(sender);
 	return {
-		message: randomReply.message.replace("[PLAYER]", sender),
+		message: randomReply.message.replace("[PLAYER]", user),
 		points: adjustedScore.points,
 		plural: pluralizedPoints,
 		time: adjustedScore.time

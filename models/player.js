@@ -3,7 +3,7 @@ module.exports = {
 		const player = {
 			id: nick,
 			nick: nick,
-			score: 0,
+			score: [],
 			charm: {
 				name: "none",
 				type: "point",

@@ -3,6 +3,9 @@ const config = require("./data/config.json");
 const log = require("./helpers/common").log;
 const game = require("./controllers/game");
 
+const common = require("./helpers/common");
+const randomize = require("./controllers/randomKitties");
+
 const co = require("co");
 const irc = require("irc");
 
@@ -59,8 +62,17 @@ function onError(err) {
 	throw new Error(err);
 }
 
+// prepare the first kitty to spawn randomly
+const time = common.getRandomInt(config.min_time, config.max_time);
+setTimeout(() => {
+	randomize.randomKitties();
+}, time);
+// common.getRandomInt(config.min_time, config.max_time));
+
 process.on("SIGINT", () => {
 	log.info("Kitty is going to sleep...");
 	client.disconnect("Nap time!");
 	process.exit();
 });
+
+module.exports.client = client;
